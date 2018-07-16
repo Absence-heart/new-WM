@@ -9,7 +9,7 @@
         <div class="food-name">
           <p class="name">{{food.name}}</p>
           <span class="sell-count">月售{{food.sellCount}}</span>
-          <span class="rate">好评率{{food.rating}}</span>
+          <span class="rate">好评率{{food.rating}}%</span>
         </div>
         <div class="food-get">
           <span class="unit">￥</span>
@@ -39,12 +39,16 @@
         <li class="comment-wrapper border-1px" v-for="item in food.ratings" :key="item.name">
           <div class="c-top">
             <span class="rate-time">{{rateTime}}</span>
-            <span class="user-name">{{item.username}}</span>
-            <img :src="item.avatar" class="user-avatar">
+            <div class="user">
+              <span class="user-name">{{item.username}}</span>
+              <img :src="item.avatar" class="user-avatar">
+            </div>
           </div>
-          <span class="icon-thumb_up" v-show="item.rateType === 0"></span>
-          <span class="icon-thumb_down" v-show="item.rateType === 1"></span>
-          <span class="text">{{item.text}}</span>
+          <div class="c-content">
+            <span class="icon-thumb_up" v-show="item.rateType === 0"></span>
+            <span class="icon-thumb_down" v-show="item.rateType === 1"></span>
+            <span class="text">{{item.text}}</span>
+          </div>
         </li>
       </ul>
     </div>
@@ -97,7 +101,6 @@ export default {
         click: true,
         mouseWheel: true
       })
-      console.log(this.scroll)
     }
   },
   computed: {
@@ -283,38 +286,39 @@ export default {
         line-height 24px
         vertical-align middle
   .comment
-    padding 18px
+    padding 0 18px 18px
     .comment-wrapper
-      border-1px(7,17,27,0.1)
+      border-1px(rgba(7,17,27,0.1))
       .c-top
-        position relative
+        margin-top 18px
         .rate-time
-        .user-name
           font-size 10px
           color rgb(147,153,159)
           line-height 12px
-        .user-name
-          position absolute
-          right 18px
-          margin-right 6px
-        .user-avatar
-          position absolute
-          right 0
-          display inline-block
-          width 12px
-          height 12px
-          border-radius 50%
-      .icon-thumb_up
-      .icon-thumb_down
-        font-size 12px
-        line-height 24px
-        vertical-align middle
-      .icon-thumb_up
-        color rgb(0,160,220)
-      .icon-thumb_down
-        color rgb(147,153,159)
-      .text
-        font-size 12px
-        color rgb(7,17,27)
-        line-height 16px
+          vertical-align middle
+        .user
+          float right
+          .user-name
+            font-size 10px
+            color rgb(147,153,159)
+            line-height 12px
+            vertical-align middle
+          .user-avatar
+            width 12px
+            height 12px
+            border-radius 50%
+      .c-content
+        .icon-thumb_up
+        .icon-thumb_down
+          font-size 12px
+          line-height 24px
+          vertical-align middle
+        .icon-thumb_up
+          color rgb(0,160,220)
+        .icon-thumb_down
+          color rgb(147,153,159)
+        .text
+          font-size 12px
+          color rgb(7,17,27)
+          line-height 16px
 </style>
