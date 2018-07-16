@@ -1,59 +1,60 @@
 <template>
   <div id="foods" v-if="flag">
     <div class="wrapper">
-      <div class="food-pic">
-        <img :src="food.image" alt="">
-        <div class="return" @click.stop="getBack">返回</div>
-      </div>
-      <div class="food-name-wrapper">
-        <div class="food-name">
-          <p class="name">{{food.name}}</p>
-          <span class="sell-count">月售{{food.sellCount}}</span>
-          <span class="rate">好评率{{food.rating}}</span>
+      <div>
+        <div class="food-pic">
+          <img :src="food.image" alt="">
+          <div class="return" @click.stop="getBack">返回</div>
         </div>
-        <div class="food-get">
-          <span class="unit">￥</span>
-          <span class="price">{{food.price}}</span>
-          <span class="old-price" v-show="food.oldPrice">￥{{food.oldPrice}}</span>
-          <span class="add" @click="addToCart">加入购物车</span>
-        </div>
-      </div>
-      <div class="blank"></div>
-      <div class="food-intro">
-        <span class="title">商品介绍</span>
-        <p class="text">{{food.info}}</p>
-      </div>
-      <div class="blank"></div>
-      <div class="rating-mark-wrapper border-1px border-1px-top">
-          <span class="title">商品评价</span>
-          <div class="rating-mark border-1px">
-            <div class="mark" style="backgroundColor: rgb(0,160,220); color: rgb(255,255,255)"><span>全部</span><span class="mark-num">{{rateCount}}</span></div>
-            <div class="mark" style="backgroundColor: rgba(0,160,220,0.2); color: rgb(77,85,93)"><span>满意</span><span class="mark-num">{{likeCount}}</span></div>
-            <div class="mark" style="backgroundColor: rgba(77,85,93,0.2); color: rgb(77,85,93)"><span>吐槽</span><span class="mark-num">{{dislikeCount}}</span></div>
+        <div class="food-name-wrapper">
+          <div class="food-name">
+            <p class="name">{{food.name}}</p>
+            <span class="sell-count">月售{{food.sellCount}}</span>
+            <span class="rate">好评率{{food.rating}}</span>
           </div>
-          <div class="scan-mark">
-            <span class="icon-check_circle"></span><span>只显示有评价的内容</span>
+          <div class="food-get">
+            <span class="unit">￥</span>
+            <span class="price">{{food.price}}</span>
+            <span class="old-price" v-show="food.oldPrice">￥{{food.oldPrice}}</span>
+            <span class="add" @click="addToCart">加入购物车</span>
           </div>
         </div>
-      <ul class="comment">
-        <li class="comment-wrapper border-1px" v-for="item in food.ratings" :key="item.name">
-          <div class="c-top">
-            <span class="rate-time">{{rateTime}}</span>
-            <span class="user-name">{{item.username}}</span>
-            <img :src="item.avatar" class="user-avatar">
+        <div class="blank"></div>
+        <div class="food-intro">
+          <span class="title">商品介绍</span>
+          <p class="text">{{food.info}}</p>
+        </div>
+        <div class="blank"></div>
+        <div class="rating-mark-wrapper border-1px border-1px-top">
+            <span class="title">商品评价</span>
+            <div class="rating-mark border-1px">
+              <div class="mark" style="backgroundColor: rgb(0,160,220); color: rgb(255,255,255)"><span>全部</span><span class="mark-num">{{rateCount}}</span></div>
+              <div class="mark" style="backgroundColor: rgba(0,160,220,0.2); color: rgb(77,85,93)"><span>满意</span><span class="mark-num">{{likeCount}}</span></div>
+              <div class="mark" style="backgroundColor: rgba(77,85,93,0.2); color: rgb(77,85,93)"><span>吐槽</span><span class="mark-num">{{dislikeCount}}</span></div>
+            </div>
+            <div class="scan-mark">
+              <span class="icon-check_circle"></span><span>只显示有评价的内容</span>
+            </div>
           </div>
-          <span class="icon-thumb_up" v-show="item.rateType === 0"></span>
-          <span class="icon-thumb_down" v-show="item.rateType === 1"></span>
-          <span class="text">{{item.text}}</span>
-        </li>
-      </ul>
+        <ul class="comment">
+          <li class="comment-wrapper border-1px" v-for="item in food.ratings" :key="item.name">
+            <div class="c-top">
+              <span class="rate-time">{{rateTime}}</span>
+              <span class="user-name">{{item.username}}</span>
+              <img :src="item.avatar" class="user-avatar">
+            </div>
+            <span class="icon-thumb_up" v-show="item.rateType === 0"></span>
+            <span class="icon-thumb_down" v-show="item.rateType === 1"></span>
+            <span class="text">{{item.text}}</span>
+          </li>
+        </ul>
+      </div>
     </div>
   </div>
 </template>
 <script>
 import Vue from 'vue'
 import {mapState} from 'vuex'
-import BScroll from 'better-scroll'
 export default {
   props: {
     food: {
@@ -75,16 +76,7 @@ export default {
       }
     }
   },
-  mounted () {
-    this._scroll()
-  },
   methods: {
-    _scroll () {
-      console.log(document.querySelectorAll('#foods'))
-      this.foodScroll = new BScroll(document.querySelectorAll('.wrapper')[0], {
-        click: true
-      })
-    },
     addToCart () {
       if (!this.food.count) {
         Vue.set(this.food, 'count')
